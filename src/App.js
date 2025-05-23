@@ -1,23 +1,17 @@
-import logo from './logo.svg';
+import React from 'react';
+import MovieList from './MovieList';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>HYELONG</h1>
       </header>
+      <MovieList title="인기 영화" apiUrl="https://api.themoviedb.org/3/movie/popular" />
+      <MovieList title="현재 상영 중인 영화" apiUrl="https://api.themoviedb.org/3/movie/now_playing" />
+      <MovieList title="방영 예정작" apiUrl="https://api.themoviedb.org/3/movie/upcoming" />
+    
     </div>
   );
 }

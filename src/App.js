@@ -1,17 +1,21 @@
-import React from 'react';
-import MovieList from './MovieList';
 import './App.css';
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import Header from './components/common/Header'
+import Footer from './components/common/Footer'
+import Home from './components/home/Home'
+import Movie from './components/movie/Movie'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>HYELONG</h1>
-      </header>
-      <MovieList title="인기 영화" apiUrl="https://api.themoviedb.org/3/movie/popular" />
-      <MovieList title="현재 상영 중인 영화" apiUrl="https://api.themoviedb.org/3/movie/now_playing" />
-      <MovieList title="방영 예정작" apiUrl="https://api.themoviedb.org/3/movie/upcoming" />
-    
+     <BrowserRouter>
+        <Header/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/movie" element={<Movie />} />
+        </Routes>
+        <Footer/>
+     </BrowserRouter>
     </div>
   );
 }

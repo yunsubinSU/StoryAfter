@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './MovieStyle.css';
+import '../../css/movie/MovieStyle.css';
 
 const MovieList = ({ title, apiUrl }) => {
   const [movies, setMovies] = useState([]);

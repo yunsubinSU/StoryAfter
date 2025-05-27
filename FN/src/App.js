@@ -4,6 +4,7 @@ import Header from './components/common/Header'
 import Footer from './components/common/Footer'
 import Home from './components/home/Home'
 import Movie from './components/movie/Movie'
+import Login from './components/login/Login';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movie" element={<Movie />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
         <Footer/>
      </BrowserRouter>

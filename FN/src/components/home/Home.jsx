@@ -55,14 +55,16 @@ const Home = () => {
 
         {/* 여기는 예고편영상을 넣을 생각이다. */}
         <div className="home-section">
-            <MovieList
-                title="인기 영화"
-                apiUrl="https://api.themoviedb.org/3/movie/popular"
-            />
+            <a className='ex-title'>실시간 영화</a>
+            <div className='ex-movie'>
+              영상은 이부분에 들어갈거다.          
+            </div>    
         </div>
 
         {/* 영화 하나 랜덤으로 해서 해당 영화 보여주기 */}
         <div className='movie-review'>
+          <a>인기 영화 리뷰</a>
+          <a>여기는 인기영화를 따로 빼서 / 여기에 맞는 리뷰를 뽑아오는 것을 만들것이다.</a>
         </div>
 
         {/* 채팅방, 문의 사항, 공지 사항을 선택했을 때 그 내용이 나오게 만들기 */}

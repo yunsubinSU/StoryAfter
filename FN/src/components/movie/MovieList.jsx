@@ -19,8 +19,6 @@ const MovieList = ({ title, apiUrl }) => {
 
     fetchMovies();
   }, [apiUrl]);
-  
-
 
   return (
     <div className="movie-category">

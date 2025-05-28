@@ -19,9 +19,9 @@ import java.time.LocalDateTime;
 @RequestMapping("/kakao")
 @CrossOrigin(origins = {"http://127.0.0.1:3000","http://localhost:3000"})
 public class KakaoRestfulAPIController {
-    private String CLIENT_ID="a10f2c80577a303d773cda1df3cf5e78";
+    private String CLIENT_ID="";
     private String REDIRECT_URI="http://localhost:8080/kakao/callback";     //SpringServer 경로로 Redirect
-    private String LOGOUT_REDIRECT_URI="http://localhost:3000/api/kakaoLogin";  //React경로로
+    private String LOGOUT_REDIRECT_URI="http://localhost:3000/kakaoLogin";  //React경로로
 
     private KakaoResponse kakaoResponse;
 
@@ -35,37 +35,36 @@ public class KakaoRestfulAPIController {
     }
 
     @GetMapping("/callback")
-    public ResponseEntity<String> callBack(@RequestParam("code") String code){
-        
+    public ResponseEntity<KakaoResponse> callBack(@RequestParam("code") String code) {
         log.info("GET /kakao/callback code..." + code);
 
-        //URL
+        // URL
         String url = "https://kauth.kakao.com/oauth/token";
 
-        //REQUEST HEADER
+        // 요청 헤더
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-type","application/x-www-form-urlencoded;charset=utf-8");
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
-        //REQUEST PARAM
-        MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
-        params.add("grant_type","authorization_code");
-        params.add("client_id",CLIENT_ID);
-        params.add("redirect_uri",REDIRECT_URI);
-        params.add("code",code);
+        // 요청 파라미터
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type", "authorization_code");
+        params.add("client_id", CLIENT_ID);
+        params.add("redirect_uri", REDIRECT_URI);
+        params.add("code", code);
 
-        //ENTITY(HEADER + PARAM)
-        HttpEntity<MultiValueMap<String,String>> entity = new HttpEntity(params,headers);
+        // 요청 엔터티 (헤더 + 파라미터)
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
-        //REQUEST
+        // 요청 실행
         RestTemplate rt = new RestTemplate();
-        //KakaoResponse response = rt.postForObject(url,entity,KakaoResponse.class);
-        ResponseEntity<KakaoResponse> response= rt.exchange(url, HttpMethod.POST,entity,KakaoResponse.class);
+        ResponseEntity<KakaoResponse> response = rt.exchange(url, HttpMethod.POST, entity, KakaoResponse.class);
 
-        System.out.println(response);
         this.kakaoResponse = response.getBody();
 
-        return new ResponseEntity<>("success",HttpStatus.OK);
+        // 액세스 토큰을 클라이언트로 반환
+        return new ResponseEntity<>(this.kakaoResponse, HttpStatus.OK);
     }
+
 
 
     @GetMapping("/main")
@@ -146,45 +145,6 @@ public class KakaoRestfulAPIController {
     }
 
 
-
-    //메세지보내기(나에게)
-    @GetMapping("/getCodeMsg")
-    public void getCodeMsg(HttpServletResponse response) throws IOException {
-
-        log.info("GET /kakao/getCodeMsg...");
-        response.sendRedirect("https://kauth.kakao.com/oauth/authorize?client_id="+CLIENT_ID+"&redirect_uri="+REDIRECT_URI+"&response_type=code&scope=talk_message");
-        //return "redirect:https://kauth.kakao.com/oauth/authorize?client_id="+CLIENT_ID+"&redirect_uri="+REDIRECT_URI+"&response_type=code&scope=talk_message";
-    }
-
-    @GetMapping("/message/me/{message}")
-    public  void sendMessageMe(@PathVariable("message") String message){
-        log.info("GET /kakao/message/me...message : " + message);
-
-        //URL
-        String url="https://kapi.kakao.com/v2/api/talk/memo/default/send";
-
-        //HEADER
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization","Bearer "+kakaoResponse.getAccess_token());
-
-        //PARAM
-        JSONObject template_object = new JSONObject();
-        template_object.put("object_type","text");
-        template_object.put("text",message);
-        template_object.put("link",new JSONObject());
-        template_object.put("button_title","");
-
-        MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
-        params.add("template_object",template_object.toString());
-
-        //ENTITY
-        HttpEntity< MultiValueMap<String,String> > entity = new HttpEntity(params,headers);
-
-        //REQUEST
-        RestTemplate rt = new RestTemplate();
-        ResponseEntity<String> response = rt.exchange(url,HttpMethod.POST,entity,String.class);
-        System.out.println(response.getBody());
-    }
 
     //-----------------------------------
     //KAKAO ACCESS TOKEN 보관용 RESPONSE

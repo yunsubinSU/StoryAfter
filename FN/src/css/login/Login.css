@@ -48,19 +48,40 @@ input{
     display: flex;
     justify-content: center;
     margin-top: 30px;
-    gap: 50px;
-    margin-right: 25px;
 }
 .NAVERIMG{
     border-radius: 50%;
     height: 60px;
     width: 60px;
+    margin-right: 50px;
+}
+.GOOGLEIMG{
+    margin-left: 50px;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+}
+.KAKAOIMG{
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    margin: 0px 10px;
 }
 .social-list{
-    gap: 60px;
-    margin-right: 10px;
     display: flex;
     list-style: none;
     justify-content: center;
     margin-bottom: 150px;
+    margin-left: 15px;
+}
+
+.social-list1{
+    margin-right: 50px;
+}
+
+.social-list2{
+    margin: 0px 20px;
+}
+.social-list3{
+    margin-left: 50px;
 }

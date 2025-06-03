@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class KakaoRestfulAPIController {
     private String CLIENT_ID="";
     private String REDIRECT_URI="http://localhost:8080/kakao/callback";     //SpringServer 경로로 Redirect
-    private String LOGOUT_REDIRECT_URI="http://localhost:3000/kakaoLogin";  //React경로로
+    private String LOGOUT_REDIRECT_URI="http://localhost:3000/api/kakaoLogin";  //React경로로
 
     private KakaoResponse kakaoResponse;
 
@@ -35,36 +35,34 @@ public class KakaoRestfulAPIController {
     }
 
     @GetMapping("/callback")
-    public ResponseEntity<KakaoResponse> callBack(@RequestParam("code") String code) {
-        log.info("GET /kakao/callback code..." + code);
+    public ResponseEntity<String> callBack(@RequestParam("code") String code){
 
-        // URL
+        log.info("GET /kakao/callback..." + code);
+        //요청 정보 확인
         String url = "https://kauth.kakao.com/oauth/token";
+        //요청 헤더 설정
+        HttpHeaders header = new HttpHeaders();
+        header.add("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+        //요청 바디 설정
+        MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type","authorization_code");
+        params.add("client_id",CLIENT_ID);
+        params.add("redirect_uri",REDIRECT_URI);
+        params.add("code",code);
+        params.add("client_secret","-");
 
-        // 요청 헤더
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        HttpEntity< MultiValueMap<String,String> > entity = new HttpEntity<>(params,header);
 
-        // 요청 파라미터
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("grant_type", "authorization_code");
-        params.add("client_id", CLIENT_ID);
-        params.add("redirect_uri", REDIRECT_URI);
-        params.add("code", code);
-
-        // 요청 엔터티 (헤더 + 파라미터)
-        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
-
-        // 요청 실행
+        //요청 후 응답확인
         RestTemplate rt = new RestTemplate();
-        ResponseEntity<KakaoResponse> response = rt.exchange(url, HttpMethod.POST, entity, KakaoResponse.class);
+        ResponseEntity<KakaoResponse> response =
+                rt.exchange(url, HttpMethod.POST,entity, KakaoResponse.class);
 
+        System.out.println(response);
         this.kakaoResponse = response.getBody();
 
-        // 액세스 토큰을 클라이언트로 반환
-        return new ResponseEntity<>(this.kakaoResponse, HttpStatus.OK);
+        return new ResponseEntity<>("success",HttpStatus.OK);
     }
-
 
 
     @GetMapping("/main")

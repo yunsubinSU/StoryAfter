@@ -32,7 +32,7 @@ dependencies {
 
 	//CONTROLLER_VALIDATION
 	implementation 'org.hibernate.validator:hibernate-validator'
-	implementation 'javax.validation:validation-api'
+	implementation 'javax.validation:validation-api:2.0.1.Final'
 
 	//MYSQL DRIVER
 	runtimeOnly 'com.mysql:mysql-connector-j'
@@ -55,8 +55,14 @@ dependencies {
 	implementation 'com.google.code.gson:gson'
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
+	// TMDB 파싱용
+	implementation 'org.json:json:20240303'
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+
+

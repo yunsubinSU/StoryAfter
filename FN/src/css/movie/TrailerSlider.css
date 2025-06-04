@@ -1,0 +1,31 @@
+.movie-category2 {
+    margin: 20px 0;
+    overflow: hidden;
+  }
+  
+  .movie-category2 h2 {
+    margin-left: 20px;
+    color: rgb(0, 0, 0);
+  }
+  
+  .movie-category__list2 {
+    display: flex;
+    /* overflow-x: auto; */
+    scroll-behavior: smooth;
+    /* padding: 20px; */
+  }
+  
+  .movie-card {
+    min-width: 200px;
+    margin-right: 10px;
+    background-color: #222;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+  }
+  
+  .movie-card img {
+    width: 100%;
+    border-bottom: 1px solid #444;
+  }

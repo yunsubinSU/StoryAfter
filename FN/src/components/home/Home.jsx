@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import axios from 'axios';
 import '../../css/home/Home.css';
 import MovieSlider from '../movie/MovieSlider';
@@ -13,15 +13,16 @@ const Home = () => {
       .catch(err => console.error(err));
   }, []);
 
-  return (
+
+
+  return ( 
     <div className="carousel-container">
-      <MovieSlider />
-        {/* 여기는 예고편영상을 넣을 생각이다. */}
+        <MovieSlider />
         <div className="home-section">
             <a className='ex-title'>실시간 영화</a>
-            <div className='ex-movie'>
-            <TrailerSlider />         
-            </div>    
+        <div className='ex-movie'>
+        <TrailerSlider title="현재 상영 중인 영화" category="now_playing" />
+        </div>    
         </div>
 
         {/* 영화 하나 랜덤으로 해서 해당 영화 보여주기 */}

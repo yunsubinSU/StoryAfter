@@ -19,35 +19,11 @@ const Login  = ()=>{
 
             }
         }
-<<<<<<< HEAD
-    };
+
 
     const handleLogin = () => {
         alert('로그인 완료');
     };
-=======
-    
-//     const [username ,setUsername] = useState()
-//     const [password ,setPassword] = useState()
-//     const navigate = useNavigate();
-//   // useEffect에서 API 검증 호출
-//   useEffect(() => {
-//     const validateToken = async () => {
-//       try {
-//         // 토큰 유효성 검증을 위한 별도 엔드포인트 호출
-//         const resp = await axios.get("http://localhost:8090/validate", {
-//           withCredentials: true,
-//         });
-//         console.log("토큰 검증 성공:", resp);
-//         navigate("/"); // 성공 시 / 경로로 이동
-//       } catch (error) {
-//         console.log("토큰 검증 실패:", error);
-//         // 비정상 응답 시 아무 동작도 하지 않음 (현재 페이지 유지)
-//       }
-//     };
-//     validateToken();
-//   }, [navigate]); // navigate를 의존성 배열에 추가
->>>>>>> 2e7cdeeaf86d52eb5c3b014d384af1c652934ce9
 
     return (
         <>  
@@ -75,6 +51,8 @@ const Login  = ()=>{
             </ul>
         </>
     )
-}
+
+};
+
 
 export default Login;

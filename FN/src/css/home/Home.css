@@ -67,7 +67,7 @@
 
   .home-section{
     display: grid;
-    grid-template-columns: 200px 600px;
+    grid-template-columns: 400px 1300px;
     grid-template-rows: 350px;
     justify-content: center;
     height: 350px;
@@ -101,4 +101,10 @@
     margin-top: 100px;
     /* 임시로 준 것들 */
     border: 1px solid black; 
+  }
+
+  .newposting {
+   background-color: aqua;
+  
+  
   }

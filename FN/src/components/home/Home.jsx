@@ -19,9 +19,9 @@ const Home = () => {
     <div className="carousel-container">
         <MovieSlider />
         <div className="home-section">
-            <a className='ex-title'>실시간 영화</a>
+            <h2 className='ex-title'>실시간 영화</h2>
         <div className='ex-movie'>
-        <TrailerSlider title="현재 상영 중인 영화" category="now_playing" />
+        <TrailerSlider category="now_playing" />
         </div>    
         </div>
 

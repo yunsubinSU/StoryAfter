@@ -67,18 +67,17 @@
 
   .home-section{
     display: grid;
-    grid-template-columns: 400px 1300px;
+    grid-template-columns: 300px 1400px;
     grid-template-rows: 350px;
     justify-content: center;
     height: 350px;
-    margin-top: 150px;
-    /* 임시로 준 것들 */
-    border: 1px solid black; 
+    margin-top: 90px;
+
   }
 
   .ex-title{
-    margin-top: 150px;
-
+    margin-top: 175px;
+    margin-right: 150px;
   }
 
   .movie-review{

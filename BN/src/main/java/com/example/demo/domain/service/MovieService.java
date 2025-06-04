@@ -44,7 +44,7 @@ public class MovieService {
 
         List<MovieDto> movies = new ArrayList<>();
 
-        for (int i = 0; i < Math.min(5, results.length()); i++) {
+        for (int i = 0; i < Math.min(8, results.length()); i++) {
             JSONObject movie = results.getJSONObject(i);
             String movieTitle = movie.getString("title");
             String movieOverview = movie.getString("overview");

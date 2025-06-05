@@ -1,0 +1,31 @@
+.search-page {
+  padding: 15px;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 60px;
+  margin: 10px 100px;
+}
+
+.movie-card1 {
+  text-align: center;
+  margin: 20px;
+}
+
+.movie-card1 img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination button {
+  margin: 0 10px;
+  padding: 6px 12px;
+}

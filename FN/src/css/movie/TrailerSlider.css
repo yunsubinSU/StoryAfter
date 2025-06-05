@@ -20,14 +20,19 @@
   padding: 10px;
   text-align: center;
 }
+.movie2{
+  text-decoration-line: none;
+}
 
-.movie-card2 > h3 {
+.slide-title {
   overflow: hidden;  		
   text-overflow: ellipsis;  	
   white-space: nowrap; 		
   word-break:break-all;
   width: 200px;
   height: 50px;
+  
+  color: black;
 }
 
 .movie-poster2{

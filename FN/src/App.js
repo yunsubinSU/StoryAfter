@@ -6,6 +6,8 @@ import Home from './components/home/Home';
 import Movie from './components/movie/Movie';
 import Login from './components/login/Login';
 import KakaoLogin from "./components/api/KakaoLogin";
+import Search from "./components/home/Search";
+import MovieDetail from "./components/movie/MovieDetail";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="/movie" element={<Movie />} />
           <Route path="/login" element={<Login />} />
           <Route path="/kakaoLogin" element={<KakaoLogin />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/movies/:id" element={<MovieDetail />} />
         </Routes>
         <Footer/>
      </BrowserRouter>

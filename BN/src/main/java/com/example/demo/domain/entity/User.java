@@ -1,11 +1,8 @@
 package com.example.demo.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -13,8 +10,20 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 public class User {
+
 	@Id
 	private String username;
+
 	private String password;
+
 	private String role;
+
+	@Column(nullable = false, unique = true)
+	private String email;
+
+	private LocalDate birthDate;
+
+	private LocalDate joinDate;
+
+	private String profileImagePath;
 }

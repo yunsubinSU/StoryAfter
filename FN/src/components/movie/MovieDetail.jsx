@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
+import '../../css/movie/MovieDetail.css';
 
 function MovieDetail() {
   const { id } = useParams();
@@ -49,33 +50,59 @@ function MovieDetail() {
   if (!movie) return <div>로딩 중...</div>;
 
   return (
-    <div style={{ maxWidth: 600, margin: 'auto', padding: 20 }}>
-      <h2>{movie.title} ({movie.originalTitle})</h2>
-      <img
-        src={`https://image.tmdb.org/t/p/w300${movie.posterPath}`}
-        alt={movie.title}
-        style={{ width: '100%', borderRadius: 8 }}
-      />
-      <p>{movie.overview}</p>
-      <p>런타임: {movie.runtime}분</p>
-      <p>개봉일: {movie.releaseDate}</p>
-      <p>평점: {movie.voteAverage}</p>
-        <h3>출연진</h3>
-        <ul style={{ listStyle: 'none', padding: 0 }}>
-        {(movie.cast ?? []).map((c) => (
-            <li key={c.name} style={{ display: 'flex', alignItems: 'center', marginBottom: 10 }}>
+<div className="PageBackground">
+  <div className="TopContainer">
+    <img src={`https://image.tmdb.org/t/p/w300${movie.posterPath}`} alt={movie.title} className="Poster" />
+
+    <div className="MovieTextInfo">
+    <h1 className="Highlight1">{movie.title} ({movie.originalTitle})</h1><hr/>
+  
+      <div className="MetaInfo">
+        <span>런타임: {movie.runtime}분</span>
+        <span>평점: {movie.voteAverage}</span>
+        <span>개봉일: {movie.releaseDate}</span>
+      </div>
+      <hr/>
+      <div className="CastList">
+        {(movie.cast ?? []).slice(0, 6).map((c) => (
+          <div className="CastItem" key={c.name}>
             <img
-                src={`https://image.tmdb.org/t/p/w185${c.profilePath}`}
-                alt={c.name}
-                style={{ width: 50, height: 75, objectFit: 'cover', borderRadius: 4, marginRight: 10 }}
+              src={`https://image.tmdb.org/t/p/w185${c.profilePath}`}
+              alt={c.name}
+              className="CastImage"
             />
-            <div>
-                <strong>{c.name}</strong> - {c.character}
-            </div>
-            </li>
+            <div className="CastName">{c.name}</div>
+          </div>
         ))}
-        </ul>
+      </div>
+
     </div>
+  </div>
+
+  <div className="PageBackground1">
+    <div className="BottomSection">
+        <h3>Story Line</h3>
+        <p className="StoryText">{movie.overview}</p>
+        <hr />
+
+        <h3>Review</h3>
+        {[1, 2, 3].map((_, i) => (
+          <div className="ReviewBox" key={i}>
+            <div className="Reviewer">
+              <img src={`/img/review${i + 1}.png`} alt="icon" />
+              <strong>HOTCHO</strong>
+            </div>
+            <div className="ReviewContent">
+              저런 장면은 일일 일 소장이 하고 싶을 정도입니다.
+            </div>
+            <div className="ReviewDate">2025/02/03</div>
+          </div>
+        ))}
+      </div>
+  </div>
+  
+</div>
+
   );
 }
 

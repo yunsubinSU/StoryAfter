@@ -8,6 +8,10 @@ import Login from './components/login/Login';
 import KakaoLogin from "./components/api/KakaoLogin";
 import Search from "./components/home/Search";
 import MovieDetail from "./components/movie/MovieDetail";
+import Join from './components/login/Join'
+import Logout from './components/login/Logout'
+import Main from './components/home/Main'
+import User from './components/User/User'
 
 function App() {
   return (
@@ -21,6 +25,11 @@ function App() {
           <Route path="/kakaoLogin" element={<KakaoLogin />} />
           <Route path="/search" element={<Search />} />
           <Route path="/movies/:id" element={<MovieDetail />} />
+          <Route path="/" element={<Main />} />
+          <Route path="/user" element={<User/>  } />
+          <Route path="/join" element={<Join />} />
+          <Route path="/logout" element={<Logout />} />
+        
         </Routes>
         <Footer/>
      </BrowserRouter>

@@ -31,7 +31,6 @@ public class UserDto {
 		return User.builder()
 				.username(this.username)
 				.password(this.password)
-				.role(this.role != null ? this.role : "ROLE_USER")
 				.email(this.email)
 				.birthDate(this.birthDate)
 				.joinDate(this.joinDate != null ? this.joinDate : LocalDate.now()) // null 방지
@@ -44,7 +43,6 @@ public class UserDto {
 		return UserDto.builder()
 				.username(user.getUsername())
 				.password(user.getPassword())
-				.role(user.getRole())
 				.email(user.getEmail())
 				.birthDate(user.getBirthDate())
 				.joinDate(user.getJoinDate())

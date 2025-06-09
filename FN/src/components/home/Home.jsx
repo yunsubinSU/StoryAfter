@@ -6,6 +6,7 @@ import TrailerSlider from '../movie/TrailerSlider';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
+  const [tab, setTab] = useState(1);
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/movies/latest')
@@ -33,6 +34,18 @@ const Home = () => {
 
         {/* 채팅방, 문의 사항, 공지 사항을 선택했을 때 그 내용이 나오게 만들기 */}
         <div className='chat-more'>
+          <div id='tab-btn'>
+                  <button onClick={()=>setTab(1)}>공지사항</button>
+                  <button onClick={()=>setTab(2)}>갤러리</button>
+              </div>
+              <div id='tab-content'>
+                  {
+                      tab === 1 ? <div id='notice'>공지사항</div>:''
+                  }
+                  {
+                      tab === 2 ? <div  id='gallery'>갤러리</div>:''
+                  }
+              </div>
         </div>
     </div>
   );

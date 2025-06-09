@@ -14,7 +14,7 @@ public class TxConfig {
     private HikariDataSource dataSource;
 
     //    JPA TransactionManager Settings
-    @Bean
+    @Bean(name = "jpaTransactionManager")
     public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);

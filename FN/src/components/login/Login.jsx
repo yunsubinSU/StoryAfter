@@ -1,58 +1,57 @@
 import axios from 'axios'
 import { useState } from "react";
-import {useNavigate} from 'react-router-dom'
 import '../../css/login/Login.css';
-//import api from '../api/axiosConfig'; // 새로운 api 인스턴스 임포트
+import { useNavigate } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const Login  = ()=>{
-    const [username ,setUsername] = useState()
-    const [password ,setPassword] = useState()
-    const navigate = useNavigate();
-  // useEffect에서 API 검증 호출
-  useEffect(() => {
-    const validateToken = async () => {
-      try {
-        // 토큰 유효성 검증을 위한 별도 엔드포인트 호출
-        const resp = await axios.get("http://localhost:8090/validate", {
-          withCredentials: true,
-        });
-        console.log("토큰 검증 성공:", resp);
-        navigate("/"); // 성공 시 / 경로로 이동
-      } catch (error) {
-        console.log("토큰 검증 실패:", error);
-        // 비정상 응답 시 아무 동작도 하지 않음 (현재 페이지 유지)
-      }
-    };
-    validateToken();
-  }, [navigate]); // navigate를 의존성 배열에 추가
+  const [form, setForm] = useState({
+    username: '',
+    password: '',
+  });
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
-    //
-    // 로그인 처리 함수
-    const handleLogin = async () => {
-        try {
-            const resp = await api.post(
-                "/login",
-                { username, password },
-                { headers: { "Content-Type": "application/json" } }
-            );
-            alert("로그인 성공:", resp.data);
-            navigate("/"); // 성공 시 / 경로로 이동
-        } catch (error) {
-            console.error("로그인 실패:", error.response ? error.response.data : error);
-            alert("로그인 실패! 다시 시도해주세요."); // 실패 시 메시지 표시
-        }
-    };
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+const handleLogin = async () => {
+    try {
+      // 로그인 API 호출
+      const response = await axios.post('/api/login', { 
+        username: form.username, 
+        password: form.password 
+      });
+
+      if (response.status === 200) {
+        // 로그인 성공, 홈으로 이동
+        navigate('/home');  // useNavigate를 사용하여 /home으로 이동
+      } else {
+        setMessage('로그인 실패');  // 실패 메시지 설정
+      }
+    } catch (error) {
+      setMessage('로그인 중 오류 발생');
+    }
+  };
+
+  const handleOAuthLogin = (provider) => {
+    // OAuth 로그인 처리
+    window.location.href = `/oauth2/authorization/${provider}`;
+  };
+
     return (
         <>  
             <div>
-                <a className='login1'>아이디 <input type="text" name="username" className='bank1'  onChange={e=>setUsername(e.target.value)} /></a><br />
-                <a className='login1'>비밀번호 <input type="password" name="password" className='bank2' onChange={e=>setPassword(e.target.value)}/></a><br />
-                <button className='login3' >로그인</button>
+                <a className='login1'>아이디 <input name="username" placeholder="아이디" onChange={handleChange} required /></a><br />
+                <a className='login1'>비밀번호 <input name="password" type="password" placeholder="비밀번호" value={form.password} onChange={handleChange} required /></a><br />
+                <button className='login3' onClick={handleLogin}>로그인</button>
             </div>
+            {message && <p className="error-message">{message}</p>}
             <ul className='list'>
                 <li>아이디 찾기</li>|
                 <li>비밀번호 찾기</li>|
-                <li>회원 가입</li>
+                <Link to="/join" className='header-title'><li>회원가입</li></Link>
             </ul>
 
             <div className='social'>
@@ -62,9 +61,9 @@ const Login  = ()=>{
             </div>
 
             <ul className='social-list'>
-                <li className='social-list1'>NAVER</li>
-                <li className='social-list2'>KAKAO</li>
-                <li className='social-list3'>GOOGLE</li>
+                <li className='social-list1' onClick={() => handleOAuthLogin('naver')}>NAVER</li>
+                <li className='social-list2' onClick={() => handleOAuthLogin('kakao')}>KAKAO</li>
+                <li className='social-list3' onClick={() => handleOAuthLogin('google')}>GOOGLE</li>
             </ul>
         </>
     )

@@ -25,7 +25,7 @@ function App() {
           <Route path="/kakaoLogin" element={<KakaoLogin />} />
           <Route path="/search" element={<Search />} />
           <Route path="/movies/:id" element={<MovieDetail />} />
-          <Route path="/" element={<Main />} />
+          <Route path="/main" element={<Main />} />
           <Route path="/user" element={<User/>  } />
           <Route path="/join" element={<Join />} />
           <Route path="/logout" element={<Logout />} />

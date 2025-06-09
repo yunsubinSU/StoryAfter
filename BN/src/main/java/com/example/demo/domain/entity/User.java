@@ -1,29 +1,43 @@
 package com.example.demo.domain.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import java.time.LocalDate;
 
-@Data
+@Entity
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
 public class User {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Column(unique = true)
+	@NotBlank
 	private String username;
 
+	@NotBlank
+	@Size(min = 8)
 	private String password;
 
-	private String role;
+	private LocalDate birth;
 
-	@Column(nullable = false, unique = true)
-	private String email;
+	private LocalDate birthDate;  // 생일
+	private String email;  // 이메일
 
-	private LocalDate birthDate;
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
-	private LocalDate joinDate;
+	private String profileImagePath;  // 프로필 이미지 경로
+	private LocalDate joinDate;  // 가입일
 
-	private String profileImagePath;
+	public enum Role {
+		USER, ADMIN
+	}
 }

@@ -28,6 +28,7 @@ public class SecurityConfig {
                                 "/oauth/**",
                                 "/api/movies/latest",  // 영화 API 예시
                                 "/api/movies/category/**",  // 카테고리별 영화 API 예시
+                                "/api/movies/**",
                                 "/api/public/**"  // 공개 API
                         ).permitAll()  // 위 URL들은 모두 인증 없이 접근 허용
                         .anyRequest().authenticated()  // 그 외에는 인증이 필요

@@ -10,7 +10,7 @@ const MovieSlider = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/movies/latest')
+    axios.get('http://localhost:8090/api/movies/latest')
       .then(res => setMovies(res.data))
       .catch(err => console.error(err));
   }, []);

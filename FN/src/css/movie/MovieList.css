@@ -12,7 +12,7 @@
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
-    padding: 20px;
+    padding: 70px;
   }
   
   .movie-card {
@@ -28,4 +28,12 @@
   .movie-card img {
     width: 100%;
     border-bottom: 1px solid #444;
+  }
+
+  .movie3{
+    text-decoration-line: none;
+  }
+  .Listmovietitle{
+    color: white;
+    font-size: 20px;
   }

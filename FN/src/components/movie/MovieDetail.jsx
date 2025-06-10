@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import '../../css/movie/MovieDetail.css';
+import Propile from '../../img/profiles.png';
 
 function MovieDetail() {
   const { id } = useParams();
@@ -89,7 +90,7 @@ function MovieDetail() {
         {[1, 2, 3].map((_, i) => (
           <div className="ReviewBox" key={i}>
             <div className="Reviewer">
-              <img src={`/img/review${i + 1}.png`} alt="icon" />
+              <img src={Propile} alt="icon" />
               <strong>HOTCHO</strong>
             </div>
             <div className="ReviewContent">

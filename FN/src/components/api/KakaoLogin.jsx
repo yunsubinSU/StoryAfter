@@ -11,7 +11,7 @@ const KakaoLogin = () => {
     // 로그인 요청
     const kakaoLoginHandler = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/kakao/getCode`);
+            const response = await axios.get(`http://localhost:8090/kakao/getCode`);
             console.log("로그인 성공", response.data);
 
         } catch (error) {
@@ -26,7 +26,7 @@ const KakaoLogin = () => {
             <button onClick={kakaoLoginHandler}>로그인 요청</button>
 
             <button>
-                <a href="http://localhost:8080/kakao/logoutWithKakao">로그아웃</a>
+                <a href="http://localhost:8090/kakao/logoutWithKakao">로그아웃</a>
             </button>
         </>
     );

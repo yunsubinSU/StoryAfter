@@ -26,13 +26,13 @@ const MovieList = ({ title, category }) => {
       <div className="movie-category__list">
         {movies.map((movie) => (
           <div key={movie.id} className="movie-card">
-            <Link to={`/movies/${movie.id}`}>
+            <Link to={`/movies/${movie.id}`} className='movie3'>
             <img
               src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
               alt={movie.title}
               className="movie-poster"
             />
-            <h3>{movie.title}</h3>
+            <h3 className='Listmovietitle'>{movie.title}</h3>
             </Link>
           </div>
         ))}

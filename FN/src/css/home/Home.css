@@ -1,0 +1,109 @@
+.carousel-container {
+    width: 100%;
+
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 100px;
+  }
+  
+  .carousel-slide {
+    width: 100%;
+    height: 800px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    transition: background-image 0.5s ease-in-out;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  
+  .carousel-overlay {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 30px 50px;
+    text-align: center;
+    color: white;
+    position: absolute;
+    bottom: 10px;
+    border-radius: 10px;
+  }
+  
+  .carousel-overlay h3 {
+    font-size: 15px;
+    margin: 0;
+  }
+  
+  .carousel-overlay h2 {
+    font-size: 20px;
+    margin: 10px 0 0;
+  }
+  
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 40px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    z-index: 10;
+    padding: 10px;
+  }
+  
+  .carousel-btn.left {
+    left: 20px;
+  }
+  
+  .carousel-btn.right {
+    right: 20px;
+  }
+  
+  .carousel-btn:hover {
+    color: #ccc;
+  }
+  
+  /* 예고편 동영상 부분 */
+
+  .home-section{
+    display: grid;
+    grid-template-columns: 300px 1400px;
+    grid-template-rows: 350px;
+    justify-content: center;
+    height: 350px;
+    margin-top: 90px;
+
+  }
+
+  .ex-title{
+    margin-top: 175px;
+    margin-right: 150px;
+  }
+
+  .movie-review{
+    display: grid;
+    grid-template-columns: 200px 600px;
+    grid-template-rows: 350px;
+    justify-content: center;
+    height: 350px;
+    margin-top: 100px;
+    /* 임시로 준 것들 */
+    border: 1px solid black; 
+  }
+
+  .chat-more{
+    display: grid;
+    grid-template-columns: 200px 600px;
+    grid-template-rows: 350px;
+    justify-content: center;
+    height: 350px;
+    margin-top: 100px;
+    /* 임시로 준 것들 */
+    border: 1px solid black; 
+  }
+
+  .newposting {
+   background-color: aqua;
+  
+  
+  }

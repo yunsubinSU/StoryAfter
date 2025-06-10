@@ -1,0 +1,64 @@
+
+.slider-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.movie-category__list2 {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  gap: 40px;
+  padding: 30px 0;
+  width: 100%;
+}
+
+.movie-card2 {
+  min-width: 200px;
+  flex-shrink: 0;
+  padding: 10px;
+  text-align: center;
+}
+.movie2{
+  text-decoration-line: none;
+}
+
+.slide-title {
+  overflow: hidden;  		
+  text-overflow: ellipsis;  	
+  white-space: nowrap; 		
+  word-break:break-all;
+  width: 200px;
+  height: 50px;
+  
+  color: black;
+}
+
+.movie-poster2{
+  width: 200px;
+  height: 300px;
+}
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: rgb(255, 255, 255);
+  border: none;
+  font-size: 30px;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.scroll-button.left {
+  left: -70px;
+}
+
+.scroll-button.right {
+  right: -70px;
+}
+
+

@@ -1,0 +1,16 @@
+.movie-slider{
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .slide{
+    height: 850px;
+    background-size: cover;
+    color: aliceblue;
+  }
+
+  .movieT{
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 700px 0px;
+  }

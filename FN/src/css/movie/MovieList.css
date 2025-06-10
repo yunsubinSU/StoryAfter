@@ -1,21 +1,20 @@
 .movie-category {
-    margin: 20px 0;
+  text-align: left;
+    margin: 20px 70px;
     overflow: hidden;
+    font-size: 20px;
+    margin-top: 60px;
   }
+
   
-  .movie-category h2 {
-    margin-left: 20px;
-    color: rgb(0, 0, 0);
-  }
-  
-  .movie-category__list {
+  .movie-category__list3 {
     display: flex;
     overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 70px;
+    scroll-behavior: smooth;   
+    margin-top: 65px;
   }
   
-  .movie-card {
+  .movie-card3 {
     min-width: 200px;
     margin-right: 10px;
     background-color: #222;
@@ -23,11 +22,12 @@
     overflow: hidden;
     text-align: center;
     color: white;
+    padding: 10px;
   }
   
-  .movie-card img {
-    width: 100%;
-    border-bottom: 1px solid #444;
+  .movie-poster3 {
+    width: 200px;
+    height: 300px;
   }
 
   .movie3{

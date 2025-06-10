@@ -22,15 +22,15 @@ const MovieList = ({ title, category }) => {
 
   return (
     <div className="movie-category">
-      <h2>{title}</h2>
-      <div className="movie-category__list">
+      <h1>{title}</h1>
+      <div className="movie-category__list3">
         {movies.map((movie) => (
-          <div key={movie.id} className="movie-card">
+          <div key={movie.id} className="movie-card3">
             <Link to={`/movies/${movie.id}`} className='movie3'>
             <img
               src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
               alt={movie.title}
-              className="movie-poster"
+              className="movie-poster3"
             />
             <h3 className='Listmovietitle'>{movie.title}</h3>
             </Link>

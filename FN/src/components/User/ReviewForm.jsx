@@ -1,24 +1,30 @@
 import React, { useState } from "react";
 import { submitReview } from "../api/reviewApi";
 
-const ReviewForm = ({ movieId, token }) => {
+const ReviewForm = ({ movieId }) => {
   const [content, setContent] = useState("");
   const [rating, setRating] = useState(5);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = localStorage.getItem("accessToken"); // ✅ 토큰 직접 가져오기
+    console.log("보내는 토큰:", token);
+
+
+
     if (!content.trim()) {
       alert("리뷰 내용을 입력해주세요.");
       return;
     }
+
     if (rating < 1 || rating > 5) {
       alert("평점은 1에서 5 사이여야 합니다.");
       return;
     }
 
     try {
-      await submitReview(movieId, content, rating, token);
+      await submitReview(movieId, content, rating, token); // ✅ token 전달
       alert("리뷰 작성 완료");
       setContent("");
       setRating(5);

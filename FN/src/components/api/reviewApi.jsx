@@ -1,13 +1,16 @@
-import axios from "axios";
+import axios from 'axios';
 
-export const submitReview = async (movieId, content, rating, token) => {
-  const reviewData = { movieId, content, rating };
-
-  return axios.post("http://localhost:8090/api/reviews", reviewData, {
-    withCredentials: true, 
+export async function submitReview(movieId, content, rating, token) {
+  const response = await axios.post('/api/reviews', {
+    movieId,
+    content,
+    rating
+  }, {
     headers: {
-      "Content-Type": "application/json",
-
-    },
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    }
   });
-};
+
+  return response.data;
+}

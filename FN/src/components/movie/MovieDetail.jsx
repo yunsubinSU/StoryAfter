@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Link,useParams } from 'react-router-dom';
 import '../../css/movie/MovieDetail.css';
-import Propile from '../../img/profiles.png';
+
 import ReviewList from '../User/ReviewList';
 
 function MovieDetail({movieId,user}) {

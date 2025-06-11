@@ -61,7 +61,7 @@ public class SecurityConfig {
                                 "/api/movies/**",
                                 "/api/public/**"
                         ).permitAll()
-                        .requestMatchers("/api/reviews/**").authenticated()
+                        .requestMatchers("/api/reviews").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, userService), UsernamePasswordAuthenticationFilter.class)

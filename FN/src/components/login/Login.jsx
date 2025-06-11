@@ -4,11 +4,13 @@ import '../../css/login/Login.css';
 import { useNavigate } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 
-const Login  = ()=>{
+const Login  = ({setUser})=>{
   const [form, setForm] = useState({
     username: '',
     password: '',
   });
+
+
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
@@ -17,35 +19,54 @@ const Login  = ()=>{
   };
 
 const handleLogin = async () => {
-    try {
-      // 로그인 API 호출
-      const response = await axios.post('/api/login', { 
-        username: form.username, 
-        password: form.password 
-      });
+  try {
+    const response = await axios.post('/auth/login', { 
+      username: form.username, 
+      password: form.password 
+    });
 
-      if (response.status === 200) {
-        // 로그인 성공, 홈으로 이동
-        navigate('/home');  // useNavigate를 사용하여 /home으로 이동
-      } else {
-        setMessage('로그인 실패');  // 실패 메시지 설정
-      }
-    } catch (error) {
-      setMessage('로그인 중 오류 발생');
+    if (!form.username || !form.password) {
+        setMessage('아이디와 비밀번호를 모두 입력해주세요.');
+        return;
     }
-  };
+
+    const data = response.data;
+
+    if (data.success) {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('username', form.username);
+      if (setUser) setUser({ username: form.username });
+
+      // 로그인 성공 처리
+      navigate('/');
+    } else {
+      setMessage(data.message || '로그인 실패');
+    }
+  } catch (error) {
+    setMessage('정보가 없습니다. 회원가입을 진행 해주세요!');
+  }
+};
 
   const handleOAuthLogin = (provider) => {
     // OAuth 로그인 처리
     window.location.href = `/oauth2/authorization/${provider}`;
   };
 
+  const handleKeyPress = (e) => {
+  if (e.key === 'Enter') {
+    handleLogin();
+  }
+};
+
     return (
         <>  
-            <div>
-                <a className='login1'>아이디 <input name="username" placeholder="아이디" onChange={handleChange} required /></a><br />
-                <a className='login1'>비밀번호 <input name="password" type="password" placeholder="비밀번호" value={form.password} onChange={handleChange} required /></a><br />
-                <button className='login3' onClick={handleLogin}>로그인</button>
+            <div className=''>
+                <a className='login1'>아이디 <input name="username" placeholder="아이디" value={form.username} onChange={handleChange} required /></a><br />
+                <a className='login2'>비밀번호 <input name="password" type="password" placeholder="비밀번호" value={form.password} onKeyPress={handleKeyPress} onChange={handleChange} required /></a><br />
+                <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
+                 <button className='login3' type="submit">로그인</button>
+                </form>
+
             </div>
             {message && <p className="error-message">{message}</p>}
             <ul className='list'>

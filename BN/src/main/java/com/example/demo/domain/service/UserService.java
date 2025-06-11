@@ -7,12 +7,15 @@ import com.example.demo.domain.dto.SignupRequest;
 import com.example.demo.domain.entity.User;
 import com.example.demo.domain.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -55,5 +58,19 @@ public class UserService {
     public String getUsername(String token) {
         return jwtUtil.getUsername(token);
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getUsername())
+                .password(user.getPassword()) // 보통 암호화된 비밀번호
+                .roles("USER")        // 예: ROLE_USER
+                .build();
+    }
+
+
 }
 

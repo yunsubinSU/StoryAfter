@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
 import java.time.LocalDate;
 
 @Entity
@@ -12,14 +13,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "user")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
-	@Column(unique = true)
-	@NotBlank
+	@Id
+	@Column(nullable = false, length = 255)
 	private String username;
 
 	@NotBlank
@@ -28,16 +27,15 @@ public class User {
 
 	private LocalDate birth;
 
-	private LocalDate birthDate;  // 생일
-	private String email;  // 이메일
+	@Column(unique = true)
+	private String email;
+
+	private String profileImagePath;
+	private LocalDate joinDate;
 
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	private String profileImagePath;  // 프로필 이미지 경로
-	private LocalDate joinDate;  // 가입일
-
-	public enum Role {
-		USER, ADMIN
-	}
+	/* ---------- ENUM ---------- */
+	public enum Role { USER, ADMIN }
 }

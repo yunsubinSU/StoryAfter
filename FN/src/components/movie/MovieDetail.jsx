@@ -1,32 +1,16 @@
 // src/components/movie/MovieDetail.jsx
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
 import '../../css/movie/MovieDetail.css';
 import Propile from '../../img/profiles.png';
+import ReviewList from '../User/ReviewList';
 
-function MovieDetail() {
+function MovieDetail({movieId,user}) {
   /* ====== 영화 상세 로딩 ====== */
   const { id }      = useParams();
   const [movie, setMovie]   = useState(null);
   const [error, setError]   = useState(null);
-
-  /* ====== 리뷰 (더미) & 페이지네이션 ====== */
-  const dummyReviews = [
-    { id: 1, nickname: 'HOTCHO', content: '저런 장면은 소장이 하고 싶을 정도입니다.', date: '2025/02/03' },
-    { id: 2, nickname: 'HOTGUY', content: '내용 진짜 재미있는데 다들 보세요', date: '2025/02/03' },
-    { id: 3, nickname: 'TOTO', content: '진짜 배우가 한 몫했다. 라인업봐봐요', date: '2025/02/03' },
-    { id: 4, nickname: 'TOPERM', content: '후속작있겠죠??? 없는거 아니죠??', date: '2025/02/03' },
-    { id: 5, nickname: 'SIAME', content: '내 인생에 있어서 이런 영화를 지금에야 봤어요 그만큼 인생작', date: '2025/02/03' },
-    { id: 6, nickname: 'ZHFLDK', content: '난 재미없었는데 그냥 캐릭터 자체가 귀여워서 두번 보고 한번보고', date: '2025/02/03' },
-  ];
-  const REVIEWS_PER_PAGE = 4;
-  const [page, setPage] = useState(0);
-
-  const pages   = Math.ceil(dummyReviews.length / REVIEWS_PER_PAGE);
-  const current = dummyReviews.slice(
-    page * REVIEWS_PER_PAGE,
-    (page + 1) * REVIEWS_PER_PAGE
-  );
+  const isLoggedIn = user != null;
 
   useEffect(() => {
     if (!id) return;
@@ -115,36 +99,21 @@ function MovieDetail() {
           {/* Review 리스트 */}
           <h3 style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             Review
-            <button className="WriteReviewBtn">리뷰 작성하기</button>
-          </h3>
-          {current.map(r => (
-            <div className="ReviewBox" key={r.id}>
-              <div className="Reviewer">
-                <img src={Propile} alt="icon" className="propileimg" />
-                <strong className="nickname12">{r.nickname}</strong>
-              </div>
-              <div className="ReviewContent">{r.content}</div>
-              <div className="ReviewDate">{r.date}</div>
-            </div>
-          ))}
+            {isLoggedIn ? (
+              <Link to="/review" className="review">
+                <button className="WriteReviewBtn">리뷰 작성하기</button>
+              </Link>
+            ) : (
+              <button
+                className="WriteReviewBtn"
+                onClick={() => alert('로그인 후 리뷰 작성이 가능합니다.')}
+              >
+                리뷰 작성하기
+              </button>
+            )}
 
-          {/* Prev / Next 버튼 (4개 이상일 때만) */}
-          {pages > 1 && (
-            <div className="ReviewPager">
-              <button
-                onClick={() => setPage(p => p - 1)}
-                disabled={page === 0}
-              >
-                Prev
-              </button>
-              <button
-                onClick={() => setPage(p => p + 1)}
-                disabled={page === pages - 1}
-              >
-                Next
-              </button>
-            </div>
-          )}
+          </h3>
+          <ReviewList movieId={movieId} />
         </div>
       </div>
     </div>

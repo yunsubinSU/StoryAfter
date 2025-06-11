@@ -60,7 +60,6 @@ public class UserRestController {
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .role(User.Role.valueOf(Optional.ofNullable(userDto.getRole()).orElse("USER")))
                 .email(userDto.getEmail())
-                .birthDate(userDto.getBirthDate())
                 .joinDate(LocalDate.now())
                 .profileImagePath(Optional.ofNullable(userDto.getProfileImagePath()).orElse("/uploads/default.jpg"))
                 .build();

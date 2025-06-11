@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../../css/home/Search.css'; // 스타일은 별도 CSS로 관리 추천
+import { Link } from 'react-router-dom';
 
 const MOVIES_PER_PAGE = 30;
 
@@ -47,15 +48,17 @@ function Search() {
       <div className="movie-grid">
         {paginatedMovies.map((movie, idx) => (
           <div key={idx} className="movie-card1">
-            <img
-              src={
-                movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                  : 'https://via.placeholder.com/200x300?text=No+Image'
-              }
-              alt={movie.title}
-            />
-            <h4>{movie.title}</h4>
+            <Link to={`/movies/${movie.id}`} className='movie2'>
+              <img
+                src={
+                  movie.poster_path
+                    ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                    : 'https://via.placeholder.com/200x300?text=No+Image'
+                }
+                alt={movie.title}
+              />
+              <h4>{movie.title}</h4>
+            </Link>
           </div>
         ))}
       </div>

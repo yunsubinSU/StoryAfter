@@ -1,43 +1,87 @@
 package com.example.demo.config;
 
+import com.example.demo.config.auth.Jwt.JwtAuthenticationFilter;
+import com.example.demo.config.auth.Jwt.JwtUtil;
+import com.example.demo.domain.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final JwtUtil jwtUtil;
+    private final UserService userService;
+
+    /**
+     * CORS 설정 (Spring Security 6.1 이상 권장 방식)
+     */
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:3000"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true); // 인증 정보 허용
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 
+    /**
+     * Spring Security 필터 체인 설정
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // CORS 설정 비활성화 (클라이언트와의 연동을 허용)
+                .cors(Customizer.withDefaults()) // 위에서 정의한 CorsConfigurationSource 사용
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/login",  // 로그인 엔드포인트는 인증 없이 허용
-                                "/join",  // 회원가입 등
+                                "/auth/login",
+                                "/auth/join",
                                 "/auth/**",
                                 "/oauth/**",
-                                "/api/movies/latest",  // 영화 API 예시
-                                "/api/movies/category/**",  // 카테고리별 영화 API 예시
+                                "/api/movies/latest",
+                                "/api/movies/category/**",
                                 "/api/movies/**",
-                                "/api/public/**"  // 공개 API
-                        ).permitAll()  // 위 URL들은 모두 인증 없이 접근 허용
-                        .anyRequest().authenticated()  // 그 외에는 인증이 필요
+                                "/api/public/**"
+                        ).permitAll()
+                        .requestMatchers("/api/reviews/**").authenticated()
+                        .anyRequest().authenticated()
                 )
-                // 기본 폼 로그인 비활성화 (JWT 등으로 로그인 처리 시)
+                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, userService), UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form.disable())
-                // 기본 HTTP 기본 인증 비활성화 (추가적인 인증 방식이 있을 경우)
-                .httpBasic(httpBasic -> httpBasic.disable());
+                .httpBasic(httpBasic -> httpBasic.disable())
+                .logout(logout -> logout
+                        .logoutUrl("/auth/logout")
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            response.setStatus(HttpServletResponse.SC_OK);
+                        })
+                );
 
         return http.build();
+    }
+
+    /**
+     * 인증 관리자 설정
+     */
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 }

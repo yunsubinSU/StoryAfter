@@ -3,8 +3,10 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.dto.MovieDetailDto;
 import com.example.demo.domain.dto.MovieDto;
+import com.example.demo.domain.dto.ReviewDto;
 import com.example.demo.domain.service.MovieService;
 
+import com.example.demo.domain.service.ReviewService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +18,11 @@ import java.util.Map;
 @RequestMapping("/api/movies")
 @CrossOrigin(origins = {"http://127.0.0.1:3000","http://localhost:3000"})
 public class MovieController {
-
+    private final ReviewService reviewService;
     private final MovieService movieService;
 
-    public MovieController(MovieService movieService) {
+    public MovieController(ReviewService reviewService, MovieService movieService) {
+        this.reviewService = reviewService;
         this.movieService = movieService;
     }
 
@@ -51,5 +54,11 @@ public class MovieController {
         return movieService.getDetail(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{movieId}/reviews")
+    public ResponseEntity<List<ReviewDto>> getMovieReviews(@PathVariable Long movieId) {
+        List<ReviewDto> reviews = reviewService.getReviewsByMovieId(movieId);
+        return ResponseEntity.ok(reviews);
     }
 }

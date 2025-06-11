@@ -32,7 +32,6 @@ public class UserDto {
 				.username(this.username)
 				.password(this.password)
 				.email(this.email)
-				.birthDate(this.birthDate)
 				.joinDate(this.joinDate != null ? this.joinDate : LocalDate.now()) // null 방지
 				.profileImagePath(this.profileImagePath)
 				.build();
@@ -44,7 +43,6 @@ public class UserDto {
 				.username(user.getUsername())
 				.password(user.getPassword())
 				.email(user.getEmail())
-				.birthDate(user.getBirthDate())
 				.joinDate(user.getJoinDate())
 				.profileImagePath(user.getProfileImagePath())
 				.build();

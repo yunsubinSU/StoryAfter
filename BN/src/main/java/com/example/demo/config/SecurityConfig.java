@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 import com.example.demo.config.auth.Jwt.JwtAuthenticationFilter;
+import com.example.demo.config.auth.Jwt.JwtTokenProvider;
 import com.example.demo.config.auth.Jwt.JwtUtil;
 import com.example.demo.domain.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,7 +23,7 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-
+    private final JwtTokenProvider jwtTokenProvider;
     private final JwtUtil jwtUtil;
     private final UserService userService;
 
@@ -46,7 +47,7 @@ public class SecurityConfig {
      * Spring Security 필터 체인 설정
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors(Customizer.withDefaults()) // 위에서 정의한 CorsConfigurationSource 사용
                 .csrf(csrf -> csrf.disable())
@@ -59,12 +60,12 @@ public class SecurityConfig {
                                 "/api/movies/latest",
                                 "/api/movies/category/**",
                                 "/api/movies/**",
-                                "/api/public/**"
+                                "/api/public/**",
+                                "/api/reviews"
                         ).permitAll()
-                        .requestMatchers("/api/reviews").authenticated()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, userService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form.disable())
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .logout(logout -> logout

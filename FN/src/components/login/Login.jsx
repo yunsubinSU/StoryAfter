@@ -4,14 +4,9 @@ import '../../css/login/Login.css';
 import { useNavigate } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 
-const Login  = ({setUser})=>{
-  const [form, setForm] = useState({
-    username: '',
-    password: '',
-  });
-
-
-  const [message, setMessage] = useState('');
+const Login = ({ setUser }) => {
+  const [form, setForm] = useState({ username: "", password: "" });
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -19,51 +14,46 @@ const Login  = ({setUser})=>{
   };
 
 const handleLogin = async () => {
+  if (!form.username || !form.password) {
+    setMessage("아이디와 비밀번호를 모두 입력해주세요.");
+    return;
+  }
+
   try {
-    const response = await axios.post('/auth/login', { 
-      username: form.username, 
-      password: form.password 
-    });
+    const response = await axios.post("http://localhost:8090/auth/login", {
+      username: form.username,
+      password: form.password,
+    }, { withCredentials: true });
 
-    if (!form.username || !form.password) {
-        setMessage('아이디와 비밀번호를 모두 입력해주세요.');
-        return;
-    }
-
-    const data = response.data;
-
-    if (data.success) {
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('username', form.username);
+    const token = response.data.accessToken;
+    if (token) {
+      localStorage.setItem("accessToken", token);
       if (setUser) setUser({ username: form.username });
-
-      // 로그인 성공 처리
-      navigate('/');
+      setMessage("");
+      alert("로그인 성공!");
+      navigate("/");
     } else {
-      setMessage(data.message || '로그인 실패');
+      setMessage("로그인 토큰이 없습니다.");
     }
   } catch (error) {
-    setMessage('정보가 없습니다. 회원가입을 진행 해주세요!');
+    setMessage("로그인 실패: 정보가 없습니다. 회원가입을 진행 해주세요!");
+    console.error(error);
   }
 };
 
   const handleOAuthLogin = (provider) => {
-    // OAuth 로그인 처리
     window.location.href = `/oauth2/authorization/${provider}`;
   };
-
-  const handleKeyPress = (e) => {
-  if (e.key === 'Enter') {
-    handleLogin();
-  }
-};
 
     return (
         <>  
             <div className=''>
                 <a className='login1'>아이디 <input name="username" placeholder="아이디" value={form.username} onChange={handleChange} required /></a><br />
-                <a className='login2'>비밀번호 <input name="password" type="password" placeholder="비밀번호" value={form.password} onKeyPress={handleKeyPress} onChange={handleChange} required /></a><br />
-                <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
+                <a className='login2'>비밀번호 <input name="password" type="password" placeholder="비밀번호" value={form.password}  onChange={handleChange} required /></a><br />
+                <form onSubmit={(e) => { 
+                  e.preventDefault(); 
+                  handleLogin(); 
+                }}>
                  <button className='login3' type="submit">로그인</button>
                 </form>
 

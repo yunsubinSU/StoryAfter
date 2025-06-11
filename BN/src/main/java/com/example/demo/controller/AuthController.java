@@ -35,7 +35,7 @@ public class AuthController {
             String token = userService.login(loginRequest); // 로그인 검증 및 토큰 생성
             return ResponseEntity.ok(Map.of(
                     "success", true,
-                    "token", token,
+                    "accessToken", token,
                     "message", "로그인 성공"
             ));
         } catch (RuntimeException e) {

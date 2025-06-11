@@ -1,30 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { submitReview } from "../api/reviewApi";
 
 const ReviewForm = ({ movieId }) => {
   const [content, setContent] = useState("");
   const [rating, setRating] = useState(5);
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("accessToken");
+    setToken(storedToken);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("accessToken"); // ✅ 토큰 직접 가져오기
-    console.log("보내는 토큰:", token);
-
-
-
-    if (!content.trim()) {
-      alert("리뷰 내용을 입력해주세요.");
-      return;
-    }
-
-    if (rating < 1 || rating > 5) {
-      alert("평점은 1에서 5 사이여야 합니다.");
+    if (!token) {
+      alert("로그인이 필요합니다.");
       return;
     }
 
     try {
-      await submitReview(movieId, content, rating, token); // ✅ token 전달
+      await submitReview(movieId, content, rating, token);
       alert("리뷰 작성 완료");
       setContent("");
       setRating(5);
@@ -35,29 +31,14 @@ const ReviewForm = ({ movieId }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>리뷰 내용:</label><br />
-        <textarea
-          rows={5}
-          cols={50}
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder="영화에 대한 솔직한 후기를 남겨주세요."
-          required
-        />
-      </div>
-
-      <div>
-        <label>평점:</label><br />
-        <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
-          {[1, 2, 3, 4, 5].map((num) => (
-            <option key={num} value={num}>
-              {num}점
-            </option>
-          ))}
-        </select>
-      </div>
-
+      <textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="내용 작성" required />
+      <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option key={n} value={n}>
+            {n}점
+          </option>
+        ))}
+      </select>
       <button type="submit">리뷰 작성</button>
     </form>
   );

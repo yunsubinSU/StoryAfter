@@ -4,7 +4,6 @@ import com.example.demo.domain.dto.ReviewDto;
 import com.example.demo.domain.dto.ReviewRequest;
 import com.example.demo.domain.service.ReviewService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +24,7 @@ public class ReviewController {
             @AuthenticationPrincipal UserDetails userDetails) {
 
         if (userDetails == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return ResponseEntity.status(401).build();
         }
 
         ReviewDto review = reviewService.writeReview(
@@ -34,13 +33,12 @@ public class ReviewController {
                 request.content(),
                 request.rating()
         );
+
         return ResponseEntity.ok(review);
     }
 
     @GetMapping("/movie/{movieId}")
     public ResponseEntity<List<ReviewDto>> getReviewsByMovieId(@PathVariable Long movieId) {
-        List<ReviewDto> reviews = reviewService.getReviewsByMovieId(movieId);
-        return ResponseEntity.ok(reviews);
+        return ResponseEntity.ok(reviewService.getReviewsByMovieId(movieId));
     }
-
 }

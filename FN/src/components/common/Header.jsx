@@ -31,7 +31,18 @@ function Header({ user, onLogout }) {
       <div className='header-left'>
         <Link to="/" className='header-title1'><h1>Story After</h1></Link>
         <Link to="/movie" className='movie1 SMN_effect-3'>MOVIE</Link>
-        <Link className='movie1 SMN_effect-3'>CHAT</Link>
+        <Link
+          to="/chatroom"
+          className='movie1 SMN_effect-3'
+          onClick={(e) => {
+            if (!user) {
+              e.preventDefault(); // 기본 이동 막기
+              alert("로그인이 필요합니다.");
+            }
+          }}
+        >
+          CHAT
+        </Link>
       </div>
 
       <div className='header-right'>

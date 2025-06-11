@@ -20,7 +20,7 @@ function Search() {
 
       try {
         const response = await fetch(`/api/movies/search?query=${encodeURIComponent(query)}`);
-        if (!response.ok) throw new Error('검색에 실패했습니다');
+        if (!response.ok) throw new Error('해당 영화가 없습니다.');
         const data = await response.json();
         setMovies(data);
         setError('');

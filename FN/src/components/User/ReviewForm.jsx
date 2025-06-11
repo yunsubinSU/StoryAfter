@@ -1,46 +1,33 @@
-import React, { useState, useEffect } from "react";
-import { submitReview } from "../api/reviewApi";
+import React, { useContext, useState } from "react";
+import { ReviewContext } from "../User/ReviewContext";
+import { useNavigate } from "react-router-dom";
+import "../../css/user/ReviewForm.css"; // 꼭 import 해주세요
 
-const ReviewForm = ({ movieId }) => {
-  const [content, setContent] = useState("");
-  const [rating, setRating] = useState(5);
-  const [token, setToken] = useState(null);
+const ReviewForm = () => {
+  const { reviews, setReviews } = useContext(ReviewContext);
+  const [text, setText] = useState("");
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem("accessToken");
-    setToken(storedToken);
-  }, []);
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!token) {
-      alert("로그인이 필요합니다.");
-      return;
-    }
-
-    try {
-      await submitReview(movieId, content, rating, token);
-      alert("리뷰 작성 완료");
-      setContent("");
-      setRating(5);
-    } catch (err) {
-      alert(err.response?.data?.message || "리뷰 작성 실패");
-    }
+    if (!text.trim()) return;
+    setReviews([...reviews, { id: Date.now(), content: text }]);
+    setText("");
+    navigate(-1);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="내용 작성" required />
-      <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
-        {[1, 2, 3, 4, 5].map((n) => (
-          <option key={n} value={n}>
-            {n}점
-          </option>
-        ))}
-      </select>
-      <button type="submit">리뷰 작성</button>
-    </form>
+    <div className="review-form-container">
+      <h2>리뷰 작성</h2>
+      <form onSubmit={handleSubmit}>
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="리뷰를 입력하세요..."
+        />
+        <button type="submit">리뷰 작성</button>
+      </form>
+    </div>
   );
 };
 

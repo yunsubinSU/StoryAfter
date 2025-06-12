@@ -2,6 +2,7 @@ import React from "react";
 import "../../css/user/ChatRoom.css";
 import horror from '../../img/horror-avatar.png';
 import SF from '../../img/sf-avatar.png';
+import { Link} from 'react-router-dom';
 
 const ChatRoomUI = () => {
   const handleJoin = (roomName) => {
@@ -14,11 +15,13 @@ const ChatRoomUI = () => {
       <div className="sidebar">
         <h2 className="section-title">내가 참여 중인 채팅방</h2>
         <div className="chat-item">
+        <Link to="/chatroomcome">
           <img
             src={horror}
             alt="공포 메니아들"
             className="chat-avatar"
           />
+          </Link>
           <span>공포 메니아들</span>
         </div>
       </div>

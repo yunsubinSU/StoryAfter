@@ -22,7 +22,7 @@ const Home = () => {
     <div className="carousel-container">
         <MovieSlider />
         <div className="home-section">
-            <h2 className='ex-title'>실시간 영화</h2>
+            <h2 className='ex-title'>최신 영화</h2>
           <div className='ex-movie'>
           <TrailerSlider category="now_playing" />
           </div>    

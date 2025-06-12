@@ -78,7 +78,7 @@ public class SecurityConfig {
     }
 
     /**
-     * 인증 관리자 설정
+     * 인증 관리자 설정z
      */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {

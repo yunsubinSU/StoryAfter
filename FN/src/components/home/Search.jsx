@@ -42,8 +42,8 @@ function Search() {
 
   return (
     <div className="search-page">
-      <h2>“{query}” 검색 결과</h2>
-      {error && <p className="error">{error}</p>}
+      <h2 className='searchmain'>“{query}” 검색 결과</h2>
+      {error && <p className="error23">{error}</p>}
 
       <div className="movie-grid">
         {paginatedMovies.map((movie, idx) => (
@@ -57,7 +57,7 @@ function Search() {
                 }
                 alt={movie.title}
               />
-              <h4>{movie.title}</h4>
+              <h4 className='moviesearch'>{movie.title}</h4>
             </Link>
           </div>
         ))}

@@ -18,8 +18,24 @@
 
 ### 🎬 기본 구조 LINK
 * 피그마 : <링크 사입 할 거임>
+-----------------------------------
+# 구상된 전체 페이지 
+--------------------------------------
+![검색페이지](https://github.com/user-attachments/assets/398aa0a3-5e22-42e9-ba57-5cc512aa3506)
+![메인페이지](https://github.com/user-attachments/assets/89014d4b-558e-4a89-9747-6c06c78cbfca)
+![상세페이지](https://github.com/user-attachments/assets/dcbf2a33-5d04-41f5-b188-b5d7ce760745)
+![영화페이지](https://github.com/user-attachments/assets/6112af1b-83e1-4966-8da3-2bb99fa9c964)
+![채팅방인](https://github.com/user-attachments/assets/69d75633-50fb-4624-94ea-b11dccbe1956)
+![채팅방](https://github.com/user-attachments/assets/66e10f92-8734-47db-8ad4-867b824dbe64)
 
 
+
+
+# 회원가입
+---------------------------------------
+* 공백으로 회원가입시 유효성 검사를 통해 메세지 전달
+* 비밀번호나 이메일은 해당 페이지가 원하는 조건으로 작성하지 않을시 오류 메세지 전달
+* 생년월일은 달력을 써서 간단하게 조회 할 수 있는 기능을 추가
 
 ![회원가입 메인 페이지](https://github.com/user-attachments/assets/dd2a9266-e1cb-4c2c-afaa-5cc9fe83b026)
 ![형식에 맞지않은 비밀번호 시 오류](https://github.com/user-attachments/assets/b1395d43-35ab-4a01-b5c0-a1b1e88f2698)

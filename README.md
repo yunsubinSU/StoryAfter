@@ -21,3 +21,9 @@
 
 
 
+![회원가입 메인 페이지](https://github.com/user-attachments/assets/dd2a9266-e1cb-4c2c-afaa-5cc9fe83b026)
+![형식에 맞지않은 비밀번호 시 오류](https://github.com/user-attachments/assets/b1395d43-35ab-4a01-b5c0-a1b1e88f2698)
+![이메일 형식에 맞지 않으면 알람](https://github.com/user-attachments/assets/4c417dd3-8fa5-4da3-b76c-54c3a745303c)
+![아무 값도 넣지 않았을 때 나오는 문구](https://github.com/user-attachments/assets/d54d71e5-ef20-4552-878a-a208d64c8f42)
+![생년월일은 달력으로 대체](https://github.com/user-attachments/assets/c22a032e-305c-4990-8b8b-66b203518a10)
+![년도 보이기](https://github.com/user-attachments/assets/6f8ec010-811b-49f8-8a94-b26be6fd56dc)
